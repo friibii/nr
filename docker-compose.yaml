@@ -10,10 +10,9 @@ services:
       - 1880:1880
     networks:
       - web
-    volumes:
-      - ./data:/data
+#    volumes:
+#      - ./data:/data
     restart: always
-    user: 1000:1000
 
   influxdb:
     container_name: influxdb
@@ -25,21 +24,19 @@ services:
     restart: always
     ports: 
       - 8086:8086
-    user: 1000:1000 
 
   grafana:
     container_name: grafana
     image: "grafana/grafana"
     networks:
       - web
-    volumes:
-      - ./grafana:/var/lib/grafana
+#    volumes:
+#      - ./grafana:/var/lib/grafana
     environment:
       - GF_INSTALL_PLUGINS=grafana-clock-panel,natel-discrete-panel,briangann-gauge-panel,vonage-status-panel,neocat-cal-heatmap-panel
     restart: always
     ports: 
       - 3000:3000
-    user: 1000:1000
 
 networks:
   web:

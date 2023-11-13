@@ -13,6 +13,7 @@ services:
     volumes:
       - ./data:/data
     restart: always
+    user: 1000:1000
 
   influxdb:
     container_name: influxdb
@@ -24,6 +25,7 @@ services:
     restart: always
     ports: 
       - 8086:8086
+    user: 1000:1000 
 
   grafana:
     container_name: grafana
@@ -37,6 +39,7 @@ services:
     restart: always
     ports: 
       - 3000:3000
+    user: 1000:1000
 
 networks:
   web:

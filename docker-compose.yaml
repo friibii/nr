@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  node-red-1:
+    image: nodered/node-red:latest
+    container_name: node-red-1
+    environment:
+      - TZ=Europe/Amsterdam
+    ports: 
+      - 1880:1880
+    networks:
+      - web
+    volumes:
+      - ./data:/data
+    restart: always
+
+  influxdb:
+    container_name: influxdb
+    image: "influxdb"
+    networks:
+      - web
+    volumes:
+      - ./influxdb:/var/lib/influxdb2
+    restart: always
+    ports: 
+      - 8086:8086
+
+  grafana:
+    container_name: grafana
+    image: "grafana/grafana"
+    networks:
+      - web
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,natel-discrete-panel,briangann-gauge-panel,vonage-status-panel,neocat-cal-heatmap-panel
+    restart: always
+    ports: 
+      - 3000:3000
+
+networks:
+  web:
